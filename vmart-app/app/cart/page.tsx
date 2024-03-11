@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/Store';
 import Image from 'next/image';
 import { SyntheticEvent } from 'react';
-import { removeProduct } from '../store/ProductSlice';
+import { removeFromCart } from '../store/CartSlice';
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.products);
+  const products = useSelector((state: RootState) => state.cart);
   return (
     <section>
       <center className="mt-5">
@@ -50,7 +50,7 @@ export default function Cart() {
                   </span>
                   <button
                     onClick={() => {
-                      dispatch(removeProduct(product?.id));
+                      dispatch(removeFromCart(product?.id));
                     }}
                     className="bg-red-500 text-white font-semibold py-2 px-4 rounded-md"
                   >

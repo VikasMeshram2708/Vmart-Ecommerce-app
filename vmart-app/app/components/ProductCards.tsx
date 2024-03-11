@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useAppDispatch } from '../store/Store';
-import { addProduct } from '../store/ProductSlice';
+import { addToCart } from '../store/CartSlice';
 
 export default function ProductCards() {
   const dispatch = useAppDispatch();
@@ -55,7 +55,7 @@ export default function ProductCards() {
                     </span>
                     <button
                       onClick={() => {
-                        dispatch(addProduct(product));
+                        dispatch(addToCart(product));
                       }}
                       className="bgAqua text-black py-2 px-4 rounded-md"
                     >

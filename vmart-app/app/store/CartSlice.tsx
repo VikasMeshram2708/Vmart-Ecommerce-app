@@ -7,17 +7,17 @@ const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    addProduct(state, action) {
+    addToCart(state, action) {
       state.push(action.payload);
     },
-    removeProduct(state, action) {
+    removeFromCart(state, action) {
       return state.filter((product) => product.id !== action.payload);
     },
   },
 });
 
-export const { addProduct, removeProduct } = productsSlice.actions;
+export const { addToCart, removeFromCart } = productsSlice.actions;
 
-export const selectProduct = (state: RootState) => state.products;
+export const selectProduct = (state: RootState) => state.cart;
 
 export default productsSlice.reducer;
