@@ -1,22 +1,27 @@
-# vMart (Ecommer App)
+# vMart Ecommerce App Setup
 
-* Nextjs + TypeScript + Redux Toolkit
-* Linting + Prettier + Unit Testing
+## Tech Stack:
+- Next.js
+- TypeScript
+- Redux Toolkit
 
+## Tools:
+- Linting
+- Prettier
+- Unit Testing
 
+## Setup:
+- [x] Linting (Default Configuration)
+- [x] Prettier
+- [x] Daisy UI Library [Visit: [Daisy UI](https://daisyui.com/)]
+- [x] Unit Testing
 
-### Setup
+## TODO:
+- [x] Verify email in Logout API against JWT decoded email.
+- [ ] Implement form validation library.
+- [ ] Manage user authentication state.
+- [ ] Restrict adding products to carts without authentication.
 
-* [x] Linting 
-* [x] Prettier
-* [x] Daisy UI Library [https://daisyui.com/]
-* [x] Uint Testing
-
-### TODO
-
-
-* [x] In Logout API frontend check if the given email is equals to the decoded email from JWT.
-
-* [] Use Library to validate the forms.
-
-* [] State to track the authentication of user if it's logged in or not.
+## Bugs To Fix:
+- [ ] Resolve Unit Testing Provider bugs.
+- [ ] Transform this README into an engaging document.
