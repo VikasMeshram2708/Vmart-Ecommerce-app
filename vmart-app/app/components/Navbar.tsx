@@ -10,6 +10,29 @@ export default function Navbar() {
     (state: RootState) => state.products.length
   );
 
+  const handleLogout = async () => {
+    try {
+      const email = 'test@gmail.com';
+      const response = await fetch('/api/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        return alert(result?.message);
+      }
+      console.log('result', result);
+      return alert(result?.message);
+    } catch (e) {
+      const err = e as Error;
+      console.log(`Something went wrong : ${err?.message}`);
+    }
+  };
+
   return (
     <nav
       data-testid="navbar"
@@ -82,17 +105,23 @@ export default function Navbar() {
         </ul>
       </div>
       <div className="navbar-end">
-        <span><h1>{totalProducts}</h1></span>
+        <span>
+          <h1>{totalProducts}</h1>
+        </span>
         <div className="">
           <Link href="/cart">
             <FaCartShopping className="mr-5" color="#08eaca" size={35} />
           </Link>
         </div>
-        <button
-          type="button"
-          className="text-[.95rem] rounded  py-[.3rem] px-4 border-2 border-[--bbg] hover:bg-[--bbg] hover:text-black font-semibold"
-        >
+        <button type="button" className="btn btn-accent">
           <Link href="/login">Login</Link>
+        </button>
+        <button
+          onClick={handleLogout}
+          type="button"
+          className="ml-3 btn btn-error btn-outline"
+        >
+          Logout
         </button>
       </div>
     </nav>

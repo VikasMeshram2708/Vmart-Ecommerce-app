@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 import bcrypt from 'bcryptjs';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { cookies } from 'next/headers';
+import jwt from 'jsonwebtoken';
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -38,6 +40,14 @@ export const POST = async (req: NextRequest) => {
 
     // compare the hashed password
     const comparePassword = await bcrypt.compare(password, user?.password);
+    console.log(process.env.JWT_SECRET!);
+
+    // cookie management
+    const cookieData = jwt.sign(email, process.env.JWT_SECRET!);
+    cookies().set('vMAuth', cookieData, {
+      httpOnly: true,
+      maxAge: 60 * 60,
+    }); 
 
     if (!comparePassword) {
       return NextResponse.json(
