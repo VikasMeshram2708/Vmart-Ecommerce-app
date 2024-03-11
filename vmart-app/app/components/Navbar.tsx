@@ -2,14 +2,13 @@
 
 import Link from 'next/link';
 import { FaCartShopping } from 'react-icons/fa6';
-import { RootState, useAppSelector } from '../store/Store';
+import { RootState } from '../store/Store';
 import { useSelector } from 'react-redux';
 
 export default function Navbar() {
   const totalProducts = useSelector(
     (state: RootState) => state.products.length
   );
-  console.log('total-products', totalProducts);
 
   return (
     <nav
@@ -93,7 +92,7 @@ export default function Navbar() {
           type="button"
           className="text-[.95rem] rounded  py-[.3rem] px-4 border-2 border-[--bbg] hover:bg-[--bbg] hover:text-black font-semibold"
         >
-          <Link href="/">Login</Link>
+          <Link href="/login">Login</Link>
         </button>
       </div>
     </nav>
