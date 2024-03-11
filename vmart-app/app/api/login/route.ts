@@ -47,7 +47,7 @@ export const POST = async (req: NextRequest) => {
     cookies().set('vMAuth', cookieData, {
       httpOnly: true,
       maxAge: 60 * 60,
-    }); 
+    });
 
     if (!comparePassword) {
       return NextResponse.json(
@@ -74,6 +74,7 @@ export const POST = async (req: NextRequest) => {
       success: true,
       message: 'User created successfully.',
       user: userDetails,
+      token: cookieData,
     });
   } catch (e) {
     const err = e as Error;
