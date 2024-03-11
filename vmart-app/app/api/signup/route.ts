@@ -6,7 +6,6 @@ import { ZodError } from 'zod';
 import bcrypt from 'bcryptjs';
 import {
   PrismaClientKnownRequestError,
-  PrismaClientUnknownRequestError,
 } from '@prisma/client/runtime/library';
 
 export const POST = async (req: NextRequest) => {
