@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bbg: #08eaca;
+}
+
+.bgAqua {
+  background-color: #08eaca;
+}
+
+.textAqua {
+  color: #08eaca;
+}
+
+.b {
+  border: 2px solid red;
+}
