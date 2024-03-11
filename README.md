@@ -14,4 +14,6 @@
 
 ### TODO
 
-* [] In Logout API frontend check if the given email is equals to the decoded email from JWT.
+* [x] In Logout API frontend check if the given email is equals to the decoded email from JWT.
+
+* [] State to track the authentication of user if it's logged in or not.
