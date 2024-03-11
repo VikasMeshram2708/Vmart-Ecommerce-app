@@ -14,6 +14,9 @@
 
 ### TODO
 
+
 * [x] In Logout API frontend check if the given email is equals to the decoded email from JWT.
+
+* [] Use Library to validate the forms.
 
 * [] State to track the authentication of user if it's logged in or not.

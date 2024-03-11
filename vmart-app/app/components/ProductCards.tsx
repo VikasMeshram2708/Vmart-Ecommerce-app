@@ -1,24 +1,20 @@
 'use client';
 
 import Image from 'next/image';
-import { SyntheticEvent, useEffect, useState } from 'react';
-import { useAppDispatch } from '../store/Store';
+import { SyntheticEvent, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../store/Store';
 import { addToCart } from '../store/CartSlice';
+import { fetchProducts } from '../store/ProductSlice';
 
 export default function ProductCards() {
   const dispatch = useAppDispatch();
-
-  const [products, setProducts] = useState<Product[]>([]);
+  const products = useAppSelector((state) => state.product.data);
 
   useEffect(() => {
-    const getProducts = async () => {
-      const response = await fetch('https://fakestoreapi.com/products/');
-      const data = await response.json();
-      setProducts(data);
-    };
-
-    getProducts();
+    dispatch(fetchProducts());
   }, []);
+
+  console.log('producsts-client', products);
 
   return (
     <section className="py-8">
