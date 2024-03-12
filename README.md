@@ -22,9 +22,8 @@
 ## TODO:
 
 - [x] Verify email in Logout API against JWT decoded email.
-- [ ] Implement form validation library.
-- [ ] Manage user authentication state.
-- [ ] Restrict adding products to carts without authentication.
+- [x] Manage user authentication state.
+- [ ] Add Fake Payment Gateway.
 - [x] Logged In User should be prevented from visiting the login and the sign up page.
 
 ## Bugs To Fix:

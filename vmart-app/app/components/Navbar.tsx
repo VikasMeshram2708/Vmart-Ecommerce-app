@@ -6,7 +6,7 @@ import { RootState } from '../store/Store';
 import { useSelector } from 'react-redux';
 
 export default function Navbar() {
-  const totalProducts = useSelector((state: RootState) => state?.cart?.length);
+  const totalProducts = useSelector((state: RootState) => state?.cart?.products.length);
   const isAuthenticated = localStorage.getItem('isAuthenticated');
 
   const handleLogout = async () => {

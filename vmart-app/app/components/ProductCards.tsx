@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { SyntheticEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/Store';
-import { addToCart } from '../store/CartSlice';
+import { addToCart} from '../store/CartSlice';
 import { fetchProducts } from '../store/ProductSlice';
 
 export default function ProductCards() {

@@ -5,20 +5,18 @@ import { RootState } from '../store/Store';
 import Image from 'next/image';
 import { SyntheticEvent } from 'react';
 import { removeFromCart } from '../store/CartSlice';
+import Checkout from './Checkout';
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.cart);
+  const products = useSelector((state: RootState) => state.cart.products);
   return (
-    <section>
-      <center className="mt-5">
-        <h1>Carts Page</h1>
-        <p>
-          {products?.length < 1
-            ? "You don't have products on your Cart."
-            : 'Showing your added products'}
-        </p>
-      </center>
+    <section className="bg-primary min-h-screen">
+      {/* CheckOut Section */}
+      <div>
+        <Checkout products={products?.length} />
+      </div>
+
       <div className="container mx-auto mt-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
           {products?.map((product) => (
@@ -45,14 +43,14 @@ export default function Cart() {
                   {product?.description}
                 </p>
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="text-lg font-bold">
+                  <p className="text-lg font-bold">
                     ${product?.price.toFixed(2)}
-                  </span>
+                  </p>
                   <button
                     onClick={() => {
                       dispatch(removeFromCart(product?.id));
                     }}
-                    className="bg-red-500 text-white font-semibold py-2 px-4 rounded-md"
+                    className="ml-2 btn btn-error btn-outline btn-sm"
                   >
                     Remove From Cart
                   </button>
