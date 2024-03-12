@@ -40,15 +40,8 @@ export const POST = async (req: NextRequest) => {
 
     // compare the hashed password
     const comparePassword = await bcrypt.compare(password, user?.password);
-    console.log(process.env.JWT_SECRET!);
 
     // cookie management
-    const cookieData = jwt.sign(email, process.env.JWT_SECRET!);
-    cookies().set('vMAuth', cookieData, {
-      httpOnly: true,
-      maxAge: 60 * 60,
-    });
-
     if (!comparePassword) {
       return NextResponse.json(
         {
@@ -61,6 +54,12 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
+    const cookieData = jwt.sign(email, process.env.JWT_SECRET!);
+    cookies().set('vMAuth', cookieData, {
+      httpOnly: true,
+      maxAge: 60 * 60,
+    });
+
     const { name: userName, email: userEmail, id: userId } = user;
 
     const userDetails = {
@@ -72,7 +71,7 @@ export const POST = async (req: NextRequest) => {
     // Return the Response
     return NextResponse.json({
       success: true,
-      message: 'User created successfully.',
+      message: 'User Logged In.',
       user: userDetails,
       token: cookieData,
     });

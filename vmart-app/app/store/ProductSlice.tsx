@@ -1,11 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-interface STATUS {
-  IDLE: string;
-  ERROR: string;
-  LOADING: string;
-}
-
 type ProductInitialState = {
   data: Product[];
   status: 'idle' | 'loading' | 'error';

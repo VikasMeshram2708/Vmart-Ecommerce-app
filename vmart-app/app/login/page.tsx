@@ -4,39 +4,42 @@ import Link from 'next/link';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { RiEyeCloseFill } from 'react-icons/ri';
 import { HiEye } from 'react-icons/hi2';
+import { UserLogin } from '../store/LoginSlice';
+import { useAppDispatch, useAppSelector } from '../store/Store';
 import { UserLoginSchema } from '@/models/User';
+import { ZodError } from 'zod';
 
 export default function Login() {
+  const status = useAppSelector((state) => state.login.status);
+  const dispatch = useAppDispatch();
+
   const [toggleEye, setToggleEye] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     try {
+      // prevent the default behaviour
       event.preventDefault();
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
 
-      const result = await response.json();
-      // sanitize the incoming data
+      // Sanitize the incoming data
       UserLoginSchema.parse({ email, password });
-      if (!response.ok) {
-        return alert(result?.message);
-      }
 
-      console.log('result', result);
-      return alert(result?.message);
+      const userData = {
+        email,
+        password,
+      };
+      dispatch(UserLogin(userData));
+      setEmail('');
+      setPassword('');
+      // alert('User Logged In Successfully.');
     } catch (e) {
       const err = e as Error;
-      console.log('Something went wrong.', err?.message);
+      if (e instanceof ZodError) {
+        return alert(e?.errors[0]?.message);
+      }
+      console.log(`Something went wrong. : ${err?.message}`);
+      return alert(err?.message);
     }
   };
 
@@ -93,7 +96,13 @@ export default function Login() {
               className="hover:bg-[--bbg] hover:text-black border-2 border-[--bbg] font-semibold py-2 px-4 rounded"
               type="submit"
             >
-              Login
+              {status === 'error'
+                ? 'Error'
+                : status === 'idle'
+                  ? 'Login'
+                  : status === 'loading'
+                    ? 'Loading...'
+                    : ''}
             </button>
             <p className="">
               Not a User?{' '}
