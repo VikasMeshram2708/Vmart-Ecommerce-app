@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 export default function Navbar() {
   const totalProducts = useSelector((state: RootState) => state?.cart?.length);
+  const isAuthenticated = localStorage.getItem('isAuthenticated');
 
   const handleLogout = async () => {
     try {
@@ -23,8 +24,9 @@ export default function Navbar() {
       if (!response.ok) {
         return alert(result?.message);
       }
-      console.log('result', result);
-      return alert(result?.message);
+      localStorage.removeItem('isAuthenticated');
+      alert(result?.message);
+      return window.location.reload();
     } catch (e) {
       const err = e as Error;
       console.log(`Something went wrong : ${err?.message}`);
@@ -111,16 +113,19 @@ export default function Navbar() {
             <FaCartShopping className="mr-5" color="#08eaca" size={35} />
           </Link>
         </div>
-        <button type="button" className="btn btn-accent">
-          <Link href="/login">Login</Link>
-        </button>
-        <button
-          onClick={handleLogout}
-          type="button"
-          className="ml-3 btn btn-error btn-outline"
-        >
-          Logout
-        </button>
+        {isAuthenticated ? (
+          <button
+            onClick={handleLogout}
+            type="button"
+            className="ml-3 btn btn-error btn-outline"
+          >
+            Logout
+          </button>
+        ) : (
+          <button type="button" className="btn btn-accent">
+            <Link href="/login">Login</Link>
+          </button>
+        )}
       </div>
     </nav>
   );

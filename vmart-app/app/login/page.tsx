@@ -1,13 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { RiEyeCloseFill } from 'react-icons/ri';
 import { HiEye } from 'react-icons/hi2';
 import { UserLogin } from '../store/LoginSlice';
 import { useAppDispatch, useAppSelector } from '../store/Store';
 import { UserLoginSchema } from '@/models/User';
 import { ZodError } from 'zod';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const status = useAppSelector((state) => state.login.status);
@@ -16,6 +17,8 @@ export default function Login() {
   const [toggleEye, setToggleEye] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const router = useRouter();
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     try {
@@ -30,6 +33,7 @@ export default function Login() {
         password,
       };
       dispatch(UserLogin(userData));
+      router.push('/');
       setEmail('');
       setPassword('');
       // alert('User Logged In Successfully.');

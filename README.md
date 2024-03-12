@@ -25,6 +25,7 @@
 - [ ] Implement form validation library.
 - [ ] Manage user authentication state.
 - [ ] Restrict adding products to carts without authentication.
+- [x] Logged In User should be prevented from visiting the login and the sign up page.
 
 ## Bugs To Fix:
 

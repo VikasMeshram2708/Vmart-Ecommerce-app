@@ -59,6 +59,7 @@ export const UserLogin = createAsyncThunk(
     if (!response.ok) {
       return alert(result?.message);
     }
+    localStorage.setItem('isAuthenticated', "authenticated");
     alert(result?.message);
     return result;
   }

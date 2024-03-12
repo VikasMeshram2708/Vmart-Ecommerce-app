@@ -9,12 +9,12 @@ import { fetchProducts } from '../store/ProductSlice';
 export default function ProductCards() {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.product.data);
+  // const authenticated = useAppSelector((state) => state.login.isAuthenticated);
 
   useEffect(() => {
+    // console.log('authenticated', authenticated);
     dispatch(fetchProducts());
   }, []);
-
-  console.log('producsts-client', products);
 
   return (
     <section className="py-8">
