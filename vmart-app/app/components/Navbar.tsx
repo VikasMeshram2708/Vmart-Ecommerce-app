@@ -4,9 +4,13 @@ import Link from 'next/link';
 import { FaCartShopping } from 'react-icons/fa6';
 import { RootState } from '../store/Store';
 import { useSelector } from 'react-redux';
+import { ProductProvider } from '../context/ProductState';
 
 export default function Navbar() {
-  const totalProducts = useSelector((state: RootState) => state?.cart?.products.length);
+  const { totalProducts } = ProductProvider();
+  // const totalProducts = useSelector(
+  //   (state: RootState) => state?.cart?.products.length
+  // );
   const isAuthenticated = localStorage.getItem('isAuthenticated');
 
   const handleLogout = async () => {
@@ -106,7 +110,7 @@ export default function Navbar() {
       </div>
       <div className="navbar-end">
         <span>
-          <h1>{totalProducts}</h1>
+          <h1>{totalProducts?.length}</h1>
         </span>
         <div className="">
           <Link href="/cart">

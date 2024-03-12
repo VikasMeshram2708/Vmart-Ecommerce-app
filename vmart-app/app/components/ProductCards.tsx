@@ -1,20 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { SyntheticEvent, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/Store';
-import { addToCart} from '../store/CartSlice';
-import { fetchProducts } from '../store/ProductSlice';
+import { SyntheticEvent } from 'react';
+import { ProductProvider } from '../context/ProductState';
 
 export default function ProductCards() {
-  const dispatch = useAppDispatch();
-  const products = useAppSelector((state) => state.product.data);
-  // const authenticated = useAppSelector((state) => state.login.isAuthenticated);
-
-  useEffect(() => {
-    // console.log('authenticated', authenticated);
-    dispatch(fetchProducts());
-  }, []);
+  const { products, addToCart, totalProducts } = ProductProvider();
 
   return (
     <section className="py-8">
@@ -29,7 +20,7 @@ export default function ProductCards() {
               >
                 <div className="relative h-48">
                   <Image
-                    src={product?.image}
+                    src={product?.thumbnail}
                     alt={product?.title}
                     fill
                     className="object-contain"
@@ -50,9 +41,7 @@ export default function ProductCards() {
                       ${product?.price.toFixed(2)}
                     </span>
                     <button
-                      onClick={() => {
-                        dispatch(addToCart(product));
-                      }}
+                      onClick={() => addToCart(product)}
                       className="bgAqua text-black py-2 px-4 rounded-md"
                     >
                       Add to Cart

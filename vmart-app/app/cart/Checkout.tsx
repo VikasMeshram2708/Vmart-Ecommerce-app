@@ -1,16 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { RootState, useAppSelector } from '../store/Store';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { GiSplitCross } from 'react-icons/gi';
+import { ProductProvider } from '../context/ProductState';
 
 type CheckoutProps = {
   products: number;
 };
 
 const Checkout = ({ products }: CheckoutProps) => {
-  const grandTotal = useAppSelector((state) => state.cart.totalPrice);
+  const { totalProducts } = ProductProvider();
+  // console.log('mocked-total', totalProducts?.length)
+  const grandTotal = totalProducts?.length;
+
   const [otp, setOtp] = useState('');
   const [currentOtp, setCurrentOtp] = useState<number | null>(null);
   const [toggleValidateForm, setToggleValidateForm] = useState(false);
@@ -90,7 +93,7 @@ const Checkout = ({ products }: CheckoutProps) => {
       >
         <h1 className="text-center text-xl">Checkout</h1>
         {orderConfirm ? (
-          <h1 className='text-center'>
+          <h1 className="text-center">
             Your Order has been <span className="font-bold">Confirmed.</span>
           </h1>
         ) : (

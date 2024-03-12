@@ -6,10 +6,10 @@ import Image from 'next/image';
 import { SyntheticEvent } from 'react';
 import { removeFromCart } from '../store/CartSlice';
 import Checkout from './Checkout';
+import { ProductProvider } from '../context/ProductState';
 
 export default function Cart() {
-  const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.cart.products);
+  const { totalProducts: products, removeProduct } = ProductProvider();
   return (
     <section className="bg-primary min-h-screen">
       {/* CheckOut Section */}
@@ -26,7 +26,7 @@ export default function Cart() {
             >
               <div className="relative h-48">
                 <Image
-                  src={product?.image}
+                  src={product?.thumbnail}
                   alt={product?.title}
                   fill
                   className="object-contain"
@@ -47,9 +47,7 @@ export default function Cart() {
                     ${product?.price.toFixed(2)}
                   </p>
                   <button
-                    onClick={() => {
-                      dispatch(removeFromCart(product?.id));
-                    }}
+                    onClick={() => removeProduct(product?.id)}
                     className="ml-2 btn btn-error btn-outline btn-sm"
                   >
                     Remove From Cart
