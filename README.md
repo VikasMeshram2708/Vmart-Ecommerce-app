@@ -29,4 +29,8 @@
 ## Bugs To Fix:
 
 - [ ] Resolve Unit Testing Provider bugs.
+- [ ] Change the Desing for Checkout Page.
+- [ ] Fix the localstorage bug that's rendering on server side.
+- [ ] Global State to keep the track on Order Confirmation.
+- [ ] Change Server Side Cookie to client side. 
 - [x] Cookie is getting stored while the password check is failed.
