@@ -64,16 +64,16 @@ export default function Navbar() {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/">About</Link>
+              <Link href="/about">About</Link>
             </li>
             <li>
-              <Link href="/">Contact</Link>
+              <Link href="/contact">Contact</Link>
             </li>
             <li>
-              <Link href="/">Privacy</Link>
+              <Link href="/privacy">Privacy</Link>
             </li>
             <li>
-              <Link href="/">Terms</Link>
+              <Link href="/terms">Terms</Link>
             </li>
           </ul>
         </div>
@@ -91,16 +91,16 @@ export default function Navbar() {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/">About</Link>
+            <Link href="/about">About</Link>
           </li>
           <li>
-            <Link href="/">Contact</Link>
+            <Link href="/contact">Contact</Link>
           </li>
           <li>
-            <Link href="/">Privacy</Link>
+            <Link href="/privacy">Privacy</Link>
           </li>
           <li>
-            <Link href="/">Terms</Link>
+            <Link href="/terms">Terms</Link>
           </li>
         </ul>
       </div>
