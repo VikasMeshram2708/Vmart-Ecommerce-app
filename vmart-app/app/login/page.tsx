@@ -4,15 +4,15 @@ import Link from 'next/link';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { RiEyeCloseFill } from 'react-icons/ri';
 import { HiEye } from 'react-icons/hi2';
-import { UserLogin } from '../store/LoginSlice';
-import { useAppDispatch, useAppSelector } from '../store/Store';
-import { UserLoginSchema } from '@/models/User';
-import { ZodError } from 'zod';
+// import { UserLogin } from '../store/LoginSlice';
+// import { useAppDispatch, useAppSelector } from '../store/Store';
+// import { UserLoginSchema } from '@/models/User';
+// import { ZodError } from 'zod';
 import { useRouter } from 'next/navigation';
+import { ProductProvider } from '../context/ProductState';
 
 export default function Login() {
-  const status = useAppSelector((state) => state.login.status);
-  const dispatch = useAppDispatch();
+  const { makeLogin } = ProductProvider();
 
   const [toggleEye, setToggleEye] = useState(false);
   const [email, setEmail] = useState('');
@@ -21,30 +21,13 @@ export default function Login() {
   const router = useRouter();
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
-    try {
-      // prevent the default behaviour
-      event.preventDefault();
+    event.preventDefault();
 
-      // Sanitize the incoming data
-      UserLoginSchema.parse({ email, password });
-
-      const userData = {
-        email,
-        password,
-      };
-      dispatch(UserLogin(userData));
-      router.push('/');
-      setEmail('');
-      setPassword('');
-      // alert('User Logged In Successfully.');
-    } catch (e) {
-      const err = e as Error;
-      if (e instanceof ZodError) {
-        return alert(e?.errors[0]?.message);
-      }
-      console.log(`Something went wrong. : ${err?.message}`);
-      return alert(err?.message);
-    }
+    const data = {
+      email,
+      password,
+    };
+    makeLogin(data);
   };
 
   return (
@@ -100,13 +83,7 @@ export default function Login() {
               className="hover:bg-[--bbg] hover:text-black border-2 border-[--bbg] font-semibold py-2 px-4 rounded"
               type="submit"
             >
-              {status === 'error'
-                ? 'Error'
-                : status === 'idle'
-                  ? 'Login'
-                  : status === 'loading'
-                    ? 'Loading...'
-                    : ''}
+              Login
             </button>
             <p className="">
               Not a User?{' '}

@@ -1,20 +1,24 @@
 'use client';
 
 import Link from 'next/link';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { GiSplitCross } from 'react-icons/gi';
 import { ProductProvider } from '../context/ProductState';
+import nookies from 'nookies';
 
 type CheckoutProps = {
   products: number;
 };
 
 const Checkout = ({ products }: CheckoutProps) => {
+  const cookieValue = nookies.get(null, 'vMartAuth') || '';
+  // const parsedValue = JSON.parse(cookieValue?.vMartAuth) || '';
+  useEffect(() => {
+    console.log('cookies', cookieValue);
+  }, []);
   const { totalProducts } = ProductProvider();
   let esteemedValue = 0;
-  totalProducts?.map(
-    (product) => (esteemedValue += product.price)
-  );
+  totalProducts?.map((product) => (esteemedValue += product.price));
   console.log('mocked-total', esteemedValue);
   const grandTotal = totalProducts?.length;
 

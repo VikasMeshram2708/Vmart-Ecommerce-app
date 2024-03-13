@@ -5,8 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 import bcrypt from 'bcryptjs';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { cookies } from 'next/headers';
-import jwt from 'jsonwebtoken';
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -54,11 +52,6 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    const cookieData = jwt.sign(email, process.env.JWT_SECRET!);
-    cookies().set('vMAuth', cookieData, {
-      httpOnly: true,
-      maxAge: 60 * 60,
-    });
 
     const { name: userName, email: userEmail, id: userId } = user;
 
@@ -73,7 +66,6 @@ export const POST = async (req: NextRequest) => {
       success: true,
       message: 'User Logged In.',
       user: userDetails,
-      token: cookieData,
     });
   } catch (e) {
     const err = e as Error;

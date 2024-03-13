@@ -3,30 +3,21 @@
 import Link from 'next/link';
 import { FaCartShopping } from 'react-icons/fa6';
 import { ProductProvider } from '../context/ProductState';
+import nookies from 'nookies';
 
 export default function Navbar() {
-  const { totalProducts } = ProductProvider();
+  const { totalProducts, isAuthenticated } = ProductProvider();
   // const totalProducts = useSelector(
   //   (state: RootState) => state?.cart?.products.length
   // );
 
   const handleLogout = async () => {
     try {
-      const email = 'test@gmail.com';
-      const response = await fetch('/api/logout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
+      nookies.destroy(null, 'vMartAuth');
+      alert('User Logged Out.');
+      await new Promise(() => {
+        window.location.reload();
       });
-      const result = await response.json();
-
-      if (!response.ok) {
-        return alert(result?.message);
-      }
-      alert(result?.message);
-      return window.location.reload();
     } catch (e) {
       const err = e as Error;
       console.log(`Something went wrong : ${err?.message}`);
@@ -113,16 +104,19 @@ export default function Navbar() {
             <FaCartShopping className="mr-5" color="#08eaca" size={35} />
           </Link>
         </div>
-        <button
-          onClick={handleLogout}
-          type="button"
-          className="ml-3 btn btn-error btn-outline"
-        >
-          Logout
-        </button>
-        <button type="button" className="btn btn-accent">
-          <Link href="/login">Login</Link>
-        </button>
+        {isAuthenticated ? (
+          <button
+            onClick={handleLogout}
+            type="button"
+            className="ml-3 btn btn-error btn-outline"
+          >
+            Logout
+          </button>
+        ) : (
+          <button type="button" className="btn btn-accent">
+            <Link href="/login">Login</Link>
+          </button>
+        )}
       </div>
     </nav>
   );
