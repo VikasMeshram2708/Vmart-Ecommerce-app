@@ -28,6 +28,7 @@
 
 ## Bugs To Fix:
 
+- [x] Initally there is 0 present in the Cart.
 - [ ] Resolve Unit Testing Provider bugs.
 - [ ] Change the Desing for Checkout Page.
 - [ ] Fix the localstorage bug that's rendering on server side.

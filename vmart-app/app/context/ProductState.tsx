@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useContext, useEffect, useState } from 'react';
+import { ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import ProductContext from './ProductContext';
 
 interface ProductChildrenProps {
@@ -25,15 +25,20 @@ const ProductState = ({ children }: ProductChildrenProps) => {
   };
 
   // Add to Cart Function
-  const addToCart = (product: Product) => {
-    console.log('product-added');
-    setTotalProducts((prev) => [...prev, product]);
-  };
+  const addToCart = useMemo(() => {
+    const productAdder = (product: Product) => {
+      console.log('product-added');
+      setTotalProducts((prev) => [...prev, product]);
+    };
+    return productAdder;
+  }, []);
 
   // Remove Product Function
   const removeProduct = (productId: number) => {
-    const filteredProducts = totalProducts.filter((product) => product?.id !== productId);
-    setTotalProducts(filteredProducts)
+    const filteredProducts = totalProducts.filter(
+      (product) => product?.id !== productId
+    );
+    setTotalProducts(filteredProducts);
   };
 
   useEffect(() => {
@@ -41,7 +46,9 @@ const ProductState = ({ children }: ProductChildrenProps) => {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products, addToCart, totalProducts, removeProduct }}>
+    <ProductContext.Provider
+      value={{ products, addToCart, totalProducts, removeProduct }}
+    >
       {children}
     </ProductContext.Provider>
   );

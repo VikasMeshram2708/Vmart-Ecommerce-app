@@ -11,7 +11,11 @@ type CheckoutProps = {
 
 const Checkout = ({ products }: CheckoutProps) => {
   const { totalProducts } = ProductProvider();
-  // console.log('mocked-total', totalProducts?.length)
+  let esteemedValue = 0;
+  totalProducts?.map(
+    (product) => (esteemedValue += product.price)
+  );
+  console.log('mocked-total', esteemedValue);
   const grandTotal = totalProducts?.length;
 
   const [otp, setOtp] = useState('');
@@ -42,15 +46,6 @@ const Checkout = ({ products }: CheckoutProps) => {
 
   return (
     <section className="textAqua">
-      {/* <button
-        onClick={() => {
-          setToggleValidateForm((prev) => !prev);
-        }}
-        type="button"
-        className="btn btn-error btn-outline"
-      >
-        Toggle
-      </button> */}
       <center>
         {toggleValidateForm && (
           <div className="fixed bg-black w-full h-full top-0 z-40 flex justify-center items-center">
@@ -91,13 +86,13 @@ const Checkout = ({ products }: CheckoutProps) => {
         action=""
         className="border-2 border-[--bbg] max-w-xl mx-auto rounded p-3"
       >
-        <h1 className="text-center text-xl">Checkout</h1>
+        {grandTotal ? <h1 className="text-center text-xl">Checkout</h1> : ''}
         {orderConfirm ? (
           <h1 className="text-center">
             Your Order has been <span className="font-bold">Confirmed.</span>
           </h1>
         ) : (
-          <h1 className="text-center text-xl">Grand Total : {grandTotal}</h1>
+          <h1 className="text-center text-xl">Grand Total : {esteemedValue}</h1>
         )}
         <div className="flex items-center justify-between">
           <h1 className="text-center">

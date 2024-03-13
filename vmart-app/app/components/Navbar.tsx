@@ -2,8 +2,6 @@
 
 import Link from 'next/link';
 import { FaCartShopping } from 'react-icons/fa6';
-import { RootState } from '../store/Store';
-import { useSelector } from 'react-redux';
 import { ProductProvider } from '../context/ProductState';
 
 export default function Navbar() {
@@ -11,7 +9,6 @@ export default function Navbar() {
   // const totalProducts = useSelector(
   //   (state: RootState) => state?.cart?.products.length
   // );
-  const isAuthenticated = localStorage.getItem('isAuthenticated');
 
   const handleLogout = async () => {
     try {
@@ -28,7 +25,6 @@ export default function Navbar() {
       if (!response.ok) {
         return alert(result?.message);
       }
-      localStorage.removeItem('isAuthenticated');
       alert(result?.message);
       return window.location.reload();
     } catch (e) {
@@ -110,26 +106,23 @@ export default function Navbar() {
       </div>
       <div className="navbar-end">
         <span>
-          <h1>{totalProducts?.length}</h1>
+          <h1>{totalProducts?.length >= 1 && totalProducts?.length}</h1>
         </span>
         <div className="">
           <Link href="/cart">
             <FaCartShopping className="mr-5" color="#08eaca" size={35} />
           </Link>
         </div>
-        {isAuthenticated ? (
-          <button
-            onClick={handleLogout}
-            type="button"
-            className="ml-3 btn btn-error btn-outline"
-          >
-            Logout
-          </button>
-        ) : (
-          <button type="button" className="btn btn-accent">
-            <Link href="/login">Login</Link>
-          </button>
-        )}
+        <button
+          onClick={handleLogout}
+          type="button"
+          className="ml-3 btn btn-error btn-outline"
+        >
+          Logout
+        </button>
+        <button type="button" className="btn btn-accent">
+          <Link href="/login">Login</Link>
+        </button>
       </div>
     </nav>
   );
