@@ -1,7 +1,7 @@
 export default function About() {
   return (
-    <section>
-      <div className="max-w-xl mx-auto text-justify mt-20 grid gap-4">
+    <section className="min-h-screen bg-primary">
+      <div className="max-w-xl mx-auto text-justify pt-20 text-[1.2rem] grid gap-4">
         <h1 className="text-3xl font-semibold text-center">About Us</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. In officia
