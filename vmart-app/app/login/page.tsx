@@ -30,7 +30,7 @@ export default function Login() {
     makeLogin(data);
     setEmail('');
     setPassword('');
-    router.push('/');
+    // router.push('/');
   };
 
   return (

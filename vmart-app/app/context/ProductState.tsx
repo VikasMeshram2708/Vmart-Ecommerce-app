@@ -46,7 +46,6 @@ const ProductState = ({ children }: ProductChildrenProps) => {
     setTotalProducts(filteredProducts);
   };
 
-
   // Login Function
   const makeLogin = async (data: Login) => {
     try {
@@ -67,8 +66,9 @@ const ProductState = ({ children }: ProductChildrenProps) => {
         maxAge: 60 * 60,
       });
       setIsAuthenticated(true);
-      console.log('result', result?.user);
-      return alert(result?.message);
+      // console.log('result', result?.user);
+      alert(result?.message);
+      return window.location.reload();
     } catch (e) {
       const err = e as Error;
       if (e instanceof ZodError) {
