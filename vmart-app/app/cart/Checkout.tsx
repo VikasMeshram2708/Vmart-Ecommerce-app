@@ -5,21 +5,17 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { GiSplitCross } from 'react-icons/gi';
 import { ProductProvider } from '../context/ProductState';
 import nookies from 'nookies';
+import { useRouter } from 'next/navigation';
 
 type CheckoutProps = {
   products: number;
 };
 
 const Checkout = ({ products }: CheckoutProps) => {
-  const cookieValue = nookies.get(null, 'vMartAuth') || '';
-  // const parsedValue = JSON.parse(cookieValue?.vMartAuth) || '';
-  useEffect(() => {
-    console.log('cookies', cookieValue);
-  }, []);
-  const { totalProducts } = ProductProvider();
+  const { totalProducts, isAuthenticated } = ProductProvider();
   let esteemedValue = 0;
   totalProducts?.map((product) => (esteemedValue += product.price));
-  console.log('mocked-total', esteemedValue);
+  // console.log('mocked-total', esteemedValue);
   const grandTotal = totalProducts?.length;
 
   const [otp, setOtp] = useState('');
@@ -27,8 +23,13 @@ const Checkout = ({ products }: CheckoutProps) => {
   const [toggleValidateForm, setToggleValidateForm] = useState(false);
   const [orderConfirm, setOrderConfirm] = useState(false);
   const [toggleCheckout, setToggleCheckout] = useState(products < 1);
+  const router = useRouter();
 
   const handleValidate = () => {
+    // check if the user is authenticated
+    if (!isAuthenticated) {
+      return router.push('/login');
+    }
     setToggleValidateForm((prev) => !prev);
     const OTP = Math.floor(1000 + Math.random() * 9000);
     console.log('OTP : ', OTP);
@@ -119,14 +120,18 @@ const Checkout = ({ products }: CheckoutProps) => {
               'Showing your products'
             )}
           </h1>
-          <button
-            disabled={toggleCheckout}
-            type="button"
-            onClick={handleValidate}
-            className="btn btn-error text-white font-semibold btn-outline btn-md"
-          >
-            Checkout
-          </button>
+          {orderConfirm ? (
+            <p className="btn btn-outline btn-accent">Order Confirmed</p>
+          ) : (
+            <button
+              disabled={toggleCheckout}
+              type="button"
+              onClick={handleValidate}
+              className="btn btn-error text-white font-semibold btn-outline btn-md"
+            >
+              Checkout
+            </button>
+          )}
         </div>
       </form>
     </section>

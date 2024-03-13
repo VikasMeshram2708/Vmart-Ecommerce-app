@@ -1,10 +1,7 @@
 'use client';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/Store';
 import Image from 'next/image';
 import { SyntheticEvent } from 'react';
-import { removeFromCart } from '../store/CartSlice';
 import Checkout from './Checkout';
 import { ProductProvider } from '../context/ProductState';
 

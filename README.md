@@ -29,7 +29,13 @@
 
 - [x] Initally there is 0 present in the Cart.
 - [ ] Resolve Unit Testing Provider bugs.
+- [x] Prevent user from Checkout if he/she isn't logged in.
+- [x] If the Order is Confirmed disable the Checkout button.
 - [x] Change the Desing for Checkout Page.
 - [x] Fix the localstorage bug that's rendering on server side.
-- [x] Change Server Side Cookie to client side. 
+- [x] Change Server Side Cookie to client side.
 - [x] Cookie is getting stored while the password check is failed.
+
+## Usage
+
+- To Get OPT Open Dev Tool and check for OTP in the console.

@@ -28,6 +28,9 @@ export default function Login() {
       password,
     };
     makeLogin(data);
+    setEmail('');
+    setPassword('');
+    router.push('/');
   };
 
   return (

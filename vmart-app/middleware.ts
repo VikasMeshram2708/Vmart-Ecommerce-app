@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const cookieValue = cookies().get('vMAuth')?.value || '';
+  const cookieValue = cookies().get('vMartAuth')?.value || '';
 
   const path = request.nextUrl.pathname;
 
